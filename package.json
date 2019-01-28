@@ -1,0 +1,15 @@
+{
+  "name": "discordbot",
+  "version": "0.0.1",
+  "description": "A simple Discord bot I developed for my own server.",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon bot"
+  },
+  "author": "Miikka Mänttäri",
+  "license": "ISC",
+  "dependencies": {
+    "discord.io": "^2.5.3"
+  }
+}
