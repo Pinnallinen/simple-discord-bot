@@ -10,6 +10,6 @@
   "author": "Miikka Mänttäri",
   "license": "ISC",
   "dependencies": {
-    "discord.io": "^2.5.3"
+    "discord.js": "^11.4.2"
   }
 }
