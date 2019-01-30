@@ -5,14 +5,14 @@ const Discord = require("discord.js");
 
 const auth = require("./auth.json");
 
-
 var bot = new Discord.Client();
 
-console.log(bot);
-console.log(bot.login(auth.token));
+// Logging onto discord
+bot.login(auth.token);
 
 bot.on("ready", () => {
     console.log(`Bot connected. \n`);
+    console.log(bot);
 });
 
 bot.on("message", ( message ) => {
@@ -23,25 +23,31 @@ bot.on("message", ( message ) => {
         var command = text[0];
             switch ( command ) {
                 case "auta":
-                    message.reply('Tämänhetkiset tuetut komennot ovat: \n' +
-                            '!auta \n' +
-                            '!kirjoita jotain\\_tekstiä, korvaa välilyönnit \\_ merkillä! \n');
+                    message.reply(`Tämänhetkiset tuetut komennot ovat:
+!auta
+!kirjoita :regional_indicator_j::regional_indicator_o::regional_indicator_t::regional_indicator_a::regional_indicator_i::regional_indicator_n: älä käytä erikoismerkkejä! `);
                     break;
 
                     case "kirjoita":
-        				var viesti = '';
+        				var replyMs = "";
                         console.log(text.toString());
-        				var textToWrite = text[1];
+                        console.log(content);
+        				var textToWrite = content.substring(10);
                         textToWrite = textToWrite.toLowerCase();
                         console.log(textToWrite);
         				for ( var i = 0; i < textToWrite.length; i++ ) {
-        					if ( textToWrite.charAt(i) == '_' )
-        						viesti += '   ';
-        					else
-        						viesti += ':regional_indicator_'+ textToWrite.charAt(i) +':';
+                            console.log(textToWrite.charAt(i));
+        					if ( textToWrite.charAt(i) === " " )
+        						replyMs += '   ';
+                            else if ( textToWrite.charAt(i) >= "a" && textToWrite.charAt(i) <= "z" )
+                                replyMs += ':regional_indicator_'+ textToWrite.charAt(i) +':';
+        					else {
+        						replyMs = "Viestissä on erikoismerkkejä!";
+                                break;
+                            }
         				}
 
-        				message.reply(viesti);
+        				message.reply(replyMs);
 
         				break;
             }
