@@ -5,6 +5,10 @@ const Discord = require("discord.js");
 
 const auth = require("./auth.json");
 
+const https = require("https");
+
+var request = require('request');
+
 var bot = new Discord.Client();
 
 // Logging onto discord
@@ -25,16 +29,17 @@ bot.on("message", ( message ) => {
                 case "auta":
                     message.reply(`Tämänhetkiset tuetut komennot ovat:
 !auta
-!kirjoita :regional_indicator_j::regional_indicator_o::regional_indicator_t::regional_indicator_a::regional_indicator_i::regional_indicator_n: älä käytä erikoismerkkejä! `);
+!kirjoita :regional_indicator_j::regional_indicator_o::regional_indicator_t::regional_indicator_a::regional_indicator_i::regional_indicator_n: älä käytä erikoismerkkejä!
+!vitsi kerron sinulle hauskan vitsin `);
                     break;
 
                     case "kirjoita":
         				var replyMs = "";
-                        console.log(text.toString());
-                        console.log(content);
+                        //console.log(text.toString());
+                        //console.log(content);
         				var textToWrite = content.substring(10);
                         textToWrite = textToWrite.toLowerCase();
-                        console.log(textToWrite);
+                        //console.log(textToWrite);
         				for ( var i = 0; i < textToWrite.length; i++ ) {
                             console.log(textToWrite.charAt(i));
         					if ( textToWrite.charAt(i) === " " )
@@ -46,10 +51,24 @@ bot.on("message", ( message ) => {
                                 break;
                             }
         				}
-
         				message.reply(replyMs);
-
         				break;
+
+                    case "vitsi":
+                        var options = {
+                            url: "http://icanhazdadjoke.com/",
+                            method: "GET",
+                            headers: {
+                                "Accept": "text/plain"
+                            }
+                        }
+                        request(options, (err, res, body) => {
+                            if ( !err && res.statusCode === 200 )
+                                message.reply(body);
+                            else
+                                message.reply("Jotain meni pieleen vitsin haussa.");
+                        });
+                        break;
             }
         }
 });
