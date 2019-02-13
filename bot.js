@@ -5,8 +5,6 @@ const Discord = require("discord.js");
 
 const auth = require("./auth.json");
 
-const https = require("https");
-
 var request = require('request');
 
 var bot = new Discord.Client();
@@ -15,8 +13,7 @@ var bot = new Discord.Client();
 bot.login(auth.token);
 
 bot.on("ready", () => {
-    console.log(`Bot connected. \n`);
-    console.log(bot);
+    console.log(`Bot connected.`);
 });
 
 bot.on("message", ( message ) => {
@@ -41,7 +38,7 @@ bot.on("message", ( message ) => {
                         textToWrite = textToWrite.toLowerCase();
                         //console.log(textToWrite);
         				for ( var i = 0; i < textToWrite.length; i++ ) {
-                            console.log(textToWrite.charAt(i));
+                            //console.log(textToWrite.charAt(i));
         					if ( textToWrite.charAt(i) === " " )
         						replyMs += '   ';
                             else if ( textToWrite.charAt(i) >= "a" && textToWrite.charAt(i) <= "z" )
@@ -51,7 +48,7 @@ bot.on("message", ( message ) => {
                                 break;
                             }
         				}
-        				message.reply(replyMs);
+        				message.channel.send(replyMs);
         				break;
 
                     case "vitsi":
@@ -64,9 +61,9 @@ bot.on("message", ( message ) => {
                         }
                         request(options, (err, res, body) => {
                             if ( !err && res.statusCode === 200 )
-                                message.reply(body);
+                                message.channel.send(body);
                             else
-                                message.reply("Jotain meni pieleen vitsin haussa.");
+                                message.channel.send("Jotain meni pieleen vitsin haussa.");
                         });
                         break;
             }
