@@ -1,16 +1,19 @@
-// const Discord = import("discord.io");
-// const auth = import("./auth.json");
 
 const Discord = require("discord.js");
 
+// The secret token.
 const auth = require("./auth.json");
 
+// request used for a request from external API
 var request = require('request');
 
 var bot = new Discord.Client();
 
 // Logging onto discord
+// From github you can use the line below 
+//bot.login("YOURTOKENHERE");
 bot.login(auth.token);
+
 
 bot.on("ready", () => {
     console.log(`Bot connected.`);
@@ -23,6 +26,7 @@ bot.on("message", ( message ) => {
 
         var command = text[0];
             switch ( command ) {
+                // Returns the list of the available commands as a reply
                 case "auta":
                     message.reply(`Tämänhetkiset tuetut komennot ovat:
 !auta
@@ -30,15 +34,12 @@ bot.on("message", ( message ) => {
 !vitsi kerron sinulle hauskan vitsin `);
                     break;
 
+                    // Returns the given text written with special characters
                     case "kirjoita":
         				var replyMs = "";
-                        //console.log(text.toString());
-                        //console.log(content);
         				var textToWrite = content.substring(10);
                         textToWrite = textToWrite.toLowerCase();
-                        //console.log(textToWrite);
         				for ( var i = 0; i < textToWrite.length; i++ ) {
-                            //console.log(textToWrite.charAt(i));
         					if ( textToWrite.charAt(i) === " " )
         						replyMs += '   ';
                             else if ( textToWrite.charAt(i) >= "a" && textToWrite.charAt(i) <= "z" )
@@ -51,6 +52,7 @@ bot.on("message", ( message ) => {
         				message.channel.send(replyMs);
         				break;
 
+                    // Returns a joke-message from an API
                     case "vitsi":
                         var options = {
                             url: "http://icanhazdadjoke.com/",
